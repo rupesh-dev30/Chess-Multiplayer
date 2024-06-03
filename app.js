@@ -23,10 +23,9 @@ app.get("/", (req, res) => {
 io.on("connection", (uniqueSocket) => {
   console.log("connected");
 
-  uniqueSocket.on("rupesh", ()=>{
-    // console.log("Rupesh Logged In");
-    io.emit("ritesh") //everyone get this in the server
-  })
+  uniqueSocket.on("disconnect", () => {
+    console.log("Disconnected");
+  });
 })
 
 server.listen(3000, () => {
