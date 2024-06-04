@@ -1,6 +1,7 @@
 const socket = io();
 const chess = new Chess();
 const boardElement = document.querySelector(".chessboard");
+const turnIndicator = document.getElementById("turnIndicator");
 
 let draggedPiece = null;
 let sourceSquare = null;
@@ -73,6 +74,8 @@ function renderBoard() {
   } else {
     boardElement.classList.remove("flipped");
   }
+
+  updateTurnIndicator();
 }
 
 function handleMove(source, target) {
@@ -108,6 +111,11 @@ function getPieceUnicode(piece) {
     K: "♔",
   };
   return unicodePieces[piece.type] || "";
+}
+
+function updateTurnIndicator() {
+  const turn = chess.turn() === "w" ? "White's turn" : "Black's turn";
+  turnIndicator.innerText = turn;
 }
 
 socket.on("playerRole", function(role) {
